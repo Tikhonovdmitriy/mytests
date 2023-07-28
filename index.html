@@ -1,59 +1,277 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
-
     <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <meta name="viewport" content="width=1000px">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <title>Document</title>
-    <style>
-        body { background-color: burlywood; }
-        #stick  {
-            transform: rotate(-7.7deg);
-            filter: drop-shadow(5px 8px 3px rgb(0 0 0 / 0.2));
-            -webkit-filter: drop-shadow(5px 8px 3px rgb(0 0 0 / 0.2));
-        }
-        #stick .container{
-
-
-
-            display:inline-block;
-
-            height: 40px;
-            clip-path: polygon(6.99465px 5.98387px, 6.99465px 5.98387px, 7.54627254px 4.978025694px, 8.20012752px 4.053755192px, 8.94714798px 3.216783118px, 9.77826696px 2.472834096px, 10.6844175px 1.82763275px, 11.65653264px 1.286903704px, 12.68554542px 0.856371582px, 13.76238888px 0.541761008px, 14.87799606px 0.348796606px, 16.0233px 0.283203px, calc(100% - 15.6048px) 0.283203px, calc(100% - 15.6048px) 0.283203px, calc(100% - 14.4594953px) 0.348796606px, calc(100% - 13.3438864px) 0.541761008px, calc(100% - 12.2670411px) 0.856371582px, calc(100% - 11.2380272px) 1.286903704px, calc(100% - 10.2659125px) 1.82763275px, calc(100% - 9.3597648px) 2.472834096px, calc(100% - 8.5286519px) 3.216783118px, calc(100% - 7.7816416px) 4.053755192px, calc(100% - 7.1278017px) 4.978025694px, calc(100% - 6.5762px) 5.98387px, calc(100% - 1.3381px) calc(50% - 4.5161px), calc(100% - 1.3381px) calc(50% - 4.5161px), calc(100% - 0.98839599999999px) calc(50% - 3.6878408px), calc(100% - 0.71640399999998px) calc(50% - 2.8385144px), calc(100% - 0.52212400000001px) calc(50% - 1.9733876px), calc(100% - 0.405556px) calc(50% - 1.0977272px), calc(100% - 0.36670000000001px) calc(50% - 0.2168px), calc(100% - 0.405556px) calc(50% - -0.6641272px), calc(100% - 0.52212400000001px) calc(50% - -1.5397876px), calc(100% - 0.71640399999998px) calc(50% - -2.4049144px), calc(100% - 0.98839599999999px) calc(50% - -3.2542408px), calc(100% - 1.3381px) calc(50% - -4.0825px), calc(100% - 6.5762px) calc(100% - 6.4175px), calc(100% - 6.5762px) calc(100% - 6.4175px), calc(100% - 7.1278017px) calc(100% - 5.4116572px), calc(100% - 7.7816416px) calc(100% - 4.4873856px), calc(100% - 8.5286519px) calc(100% - 3.6504104px), calc(100% - 9.3597648px) calc(100% - 2.9064568px), calc(100% - 10.2659125px) calc(100% - 2.26125px), calc(100% - 11.2380272px) calc(100% - 1.7205152px), calc(100% - 12.2670411px) calc(100% - 1.2899776px), calc(100% - 13.3438864px) calc(100% - 0.97536239999999px), calc(100% - 14.4594953px) calc(100% - 0.7823948px), calc(100% - 15.6048px) calc(100% - 0.71680000000001px), 16.0233px calc(100% - 0.7168px), 16.0233px calc(100% - 0.7168px), 14.87799633px calc(100% - 0.78239479999999px), 13.76238984px calc(100% - 0.97536239999999px), 12.68554731px calc(100% - 1.2899776px), 11.65653552px calc(100% - 1.7205152px), 10.68442125px calc(100% - 2.26125px), 9.77827128px calc(100% - 2.9064568px), 8.94715239px calc(100% - 3.6504104px), 8.20013136px calc(100% - 4.4873856px), 7.54627497px calc(100% - 5.4116572px), 6.99465px calc(100% - 6.4175px), 1.75655px calc(50% - -4.0825px), 1.75655px calc(50% - -4.0825px), 1.40684816px calc(50% - -3.2542408px), 1.13485784px calc(50% - -2.4049144px), 0.94057904px calc(50% - -1.5397876px), 0.82401176px calc(50% - -0.6641272px), 0.785156px calc(50% - 0.2168px), 0.82401176px calc(50% - 1.0977272px), 0.94057904px calc(50% - 1.9733876px), 1.13485784px calc(50% - 2.8385144px), 1.40684816px calc(50% - 3.6878408px), 1.75655px calc(50% - 4.5161px), 6.99465px 5.98387px);
-            -webkit-clip-path: polygon(6.99465px 5.98387px, 6.99465px 5.98387px, 7.54627254px 4.978025694px, 8.20012752px 4.053755192px, 8.94714798px 3.216783118px, 9.77826696px 2.472834096px, 10.6844175px 1.82763275px, 11.65653264px 1.286903704px, 12.68554542px 0.856371582px, 13.76238888px 0.541761008px, 14.87799606px 0.348796606px, 16.0233px 0.283203px, calc(100% - 15.6048px) 0.283203px, calc(100% - 15.6048px) 0.283203px, calc(100% - 14.4594953px) 0.348796606px, calc(100% - 13.3438864px) 0.541761008px, calc(100% - 12.2670411px) 0.856371582px, calc(100% - 11.2380272px) 1.286903704px, calc(100% - 10.2659125px) 1.82763275px, calc(100% - 9.3597648px) 2.472834096px, calc(100% - 8.5286519px) 3.216783118px, calc(100% - 7.7816416px) 4.053755192px, calc(100% - 7.1278017px) 4.978025694px, calc(100% - 6.5762px) 5.98387px, calc(100% - 1.3381px) calc(50% - 4.5161px), calc(100% - 1.3381px) calc(50% - 4.5161px), calc(100% - 0.98839599999999px) calc(50% - 3.6878408px), calc(100% - 0.71640399999998px) calc(50% - 2.8385144px), calc(100% - 0.52212400000001px) calc(50% - 1.9733876px), calc(100% - 0.405556px) calc(50% - 1.0977272px), calc(100% - 0.36670000000001px) calc(50% - 0.2168px), calc(100% - 0.405556px) calc(50% - -0.6641272px), calc(100% - 0.52212400000001px) calc(50% - -1.5397876px), calc(100% - 0.71640399999998px) calc(50% - -2.4049144px), calc(100% - 0.98839599999999px) calc(50% - -3.2542408px), calc(100% - 1.3381px) calc(50% - -4.0825px), calc(100% - 6.5762px) calc(100% - 6.4175px), calc(100% - 6.5762px) calc(100% - 6.4175px), calc(100% - 7.1278017px) calc(100% - 5.4116572px), calc(100% - 7.7816416px) calc(100% - 4.4873856px), calc(100% - 8.5286519px) calc(100% - 3.6504104px), calc(100% - 9.3597648px) calc(100% - 2.9064568px), calc(100% - 10.2659125px) calc(100% - 2.26125px), calc(100% - 11.2380272px) calc(100% - 1.7205152px), calc(100% - 12.2670411px) calc(100% - 1.2899776px), calc(100% - 13.3438864px) calc(100% - 0.97536239999999px), calc(100% - 14.4594953px) calc(100% - 0.7823948px), calc(100% - 15.6048px) calc(100% - 0.71680000000001px), 16.0233px calc(100% - 0.7168px), 16.0233px calc(100% - 0.7168px), 14.87799633px calc(100% - 0.78239479999999px), 13.76238984px calc(100% - 0.97536239999999px), 12.68554731px calc(100% - 1.2899776px), 11.65653552px calc(100% - 1.7205152px), 10.68442125px calc(100% - 2.26125px), 9.77827128px calc(100% - 2.9064568px), 8.94715239px calc(100% - 3.6504104px), 8.20013136px calc(100% - 4.4873856px), 7.54627497px calc(100% - 5.4116572px), 6.99465px calc(100% - 6.4175px), 1.75655px calc(50% - -4.0825px), 1.75655px calc(50% - -4.0825px), 1.40684816px calc(50% - -3.2542408px), 1.13485784px calc(50% - -2.4049144px), 0.94057904px calc(50% - -1.5397876px), 0.82401176px calc(50% - -0.6641272px), 0.785156px calc(50% - 0.2168px), 0.82401176px calc(50% - 1.0977272px), 0.94057904px calc(50% - 1.9733876px), 1.13485784px calc(50% - 2.8385144px), 1.40684816px calc(50% - 3.6878408px), 1.75655px calc(50% - 4.5161px), 6.99465px 5.98387px);
-            background-color: #ffffff;
-        }
-
-
-        #stick span { display: inline-block;  position: relative; top: 50%;
-            transform: translateY(-50%); padding:  0px 21px 0px 21px;
-            font-family: Rubik, Arial, Helvetica, sans-serif; font-weight: 900;   font-size: 21px;
-
-    </style>
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="#ТНТздесь">
+    <meta property="og:description" content="Съёмочный трейлер ТНТ отправился в тур по России! Снимись в ролике, попади на ТНТ!">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="http://adv-cdn.tnt-online.ru/tnt/tnt-tyt/social_share.jpg">
+  <link rel="stylesheet" href="css/style.css">
+    <title>#ТНТздесь</title>
 
 
 
 
 
+    <script type="text/javascript" title="Google Analytics">
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
+        ga('create', 'UA-2865583-8', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script type="text/javascript" title="Yandex.Metrika">
+        (function(d, w, c) {
+            (w[c] = w[c] || []).push(function() {
+                try {
+                    w.yaCounter32937699 = new Ya.Metrika({
+                        id: 32937699,
+                        clickmap: true,
+                        trackLinks: true,
+                        accurateTrackBounce: true
+                    });
+                } catch (e) {}
+            });
 
+            var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function() {
+                    n.parentNode.insertBefore(s, n);
+                };
+            s.type = "text/javascript";
+            s.async = true;
+            s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+            if (w.opera == "[object Opera]") {
+                d.addEventListener("DOMContentLoaded", f, false);
+            } else {
+                f();
+            }
+        })(document, window, "yandex_metrika_callbacks");
+    </script>
+    <noscript>&lt;div&gt;&lt;img src="https://mc.yandex.ru/watch/32937699" style="position:absolute; left:-9999px;" alt="" /&gt;&lt;/div&gt;</noscript>
+    <script type="text/javascript" title="TNS Counter">
+        var img = new Image();
+        img.src = 'http://www.tns-counter.ru/V13a***R>' + document.referrer.replace(/\*/g, '%2a') + '*tnt_ru/ru/CP1251/tmsec=tnt_online/';
+    </script>
+    <noscript>&lt;img src="http://www.tns-counter.ru/V13a****tnt_ru/ru/CP1251/tmsec=tnt_online/" width="1" height="1" alt="" /&gt;</noscript>
+    
 </head>
 
 <body>
-<div id="stick">   <div class="container"><span>НОВЫЙ СЕЗОН</span></div></div>
 
-<div id="stick" style="margin-top: 50px">   <div class="container"><span>ПРЕМЬЕРА</span></div></div>
+    <section class="sec-One">
+        <!--
+        <div class="almazR">
+            <img src="img/R.png" alt="">
+        </div>
+        <div class="almazL">
+            <img src="img/L.png" alt="">
+        </div>
+    -->
+    <div class="brill1">
+        <img src="img/brill1.png" alt="">
+    </div>
+        <h1 class="bold hashtag">#ТНТздесь</h1>
+        <img src="img/main-logo.png" alt="" class="logo">
 
-<div id="stick" style="margin-top: 50px">   <div class="container"><span>НОВОЕ ШОУ</span></div></div>
 
+        <h1 class="bold">
+            Мы едем на VK-фест
+            
+             
+        </h1>
+        <h2 class="medium">
+            и даем тебе шанс стать звездой ТНТ: 
+
+        </h2>
+        <div class="regular sec-One__text">
+            28-29 июля ищи зону <b class="bold">#ТНТздесь</b> на фестивале VK <br>
+            в Санкт-Петербурге и прими участие в грандиозных  <br>
+            съёмках в трейлере ТНТ.  
+
+        </div>
+        <div class="sec-One__true">
+            <img src="img/kino.png" alt="">
+            <span class="regular">Всё по-настоящему: грим, режиссёр,
+                камеры – хлоп, и&nbsp;ты в эфире! </span>
+        </div>
+        </div>
+        <div class="trailer">
+            <img src="img/auto.png" alt="" class="trailer">
+        </div>
+        
+
+        <div class="dop">
+            <h1 class="bold">попади на тнт</h1>
+            <div class="sec-Two__text regular">
+                Сразу после фестиваля  <span class="bold">съёмочный трейлер ТНТ </span> поедет по&nbsp;городам России. <br>
+                Всего  <span class='regular color'>26 городов — от Питера до Владивостока.</span>  Не&nbsp;упусти свой шанс <br>
+                — специально для тебя мы подготовили весь маршрут: 
+            </div>
+        </div>
+    </section>
+    <section class="sec-Two">
+        <div class="blueb">
+            <img src="img/brillian2.png" alt="">
+        </div>
+        <div class="select-wrap new_block">
+            <div id="animation_container3" style="background-color:rgba(0, 0, 0,0); width:956px; height:750px">
+                    <canvas id="canvas3" width="956" height="750" style="position: absolute; display: block; background-color:rgba(0, 0, 0, 0);"></canvas>
+                    <div id="dom_overlay_container3" style="pointer-events:none; overflow:hidden; width:956px; height:750px; position: absolute; left: 0px; top: 0px; display: block;">
+                    </div>
+                </div>
+        </div>
+
+            <div class="text regular">
+                До 1 ноября мы определим <br>
+                <span class="bold">по 10 счастливчиков</span> <br>
+                из каждого города, которые<br>
+                <span class="bold">попадут на экраны ТНТ!</span>
+            </div>
+    </section>
+    <section class="sec-Three">
+            <div class="winners">
+                <h1 class="bold">кто победит </h1>
+                <div class="text-box">
+                    <div class="regular">
+                        <img src="img/icon_png.png" />
+                        3 победителей выберут<br>
+                        представители телеканала ТНТ
+                    
+                    </div>
+                    <div class="regular">
+                        <img src="img/icon_star.png" />
+                        3 победителей выберут<br>
+                         звёзды ТНТ
+                    </div>
+                    <div class="regular">
+                        <img src="img/icon_glas.png" />
+                        3 участника акции<br>
+                        с наибольшим числом просмотров роликов
+                        
+                    </div>
+                    <div class="regular">
+                        <img src="img/icon_vk.png" />
+                        1 победитель будет определён администраторами <br>
+                        страницы ТНТ ВКонтакте
+                    </div>
+
+                </div>
+        </div>
+            <div class="sec-prom">
+
+
+                <div class="tab_new">
+                        <div class="old_stage bold">Попади на ТНТ 2017</div>
+                        
+                </div>
+                <div class="old_stage_box">
+                    <div class="tab old">
+                        <div class="osen bold">Осенний этап</div>
+                        <div class="zima active bold">Зимний этап</div>
+                    </div>
+                    <div class="select-wrap old_block old">
+                        <div class="sel-one">
+                            <div id="animation_container2" style="background-color:rgba(0, 0, 0,0); width:956px; height:750px">
+                                <canvas id="canvas2" width="956" height="750" style="position: absolute; display: block; background-color:rgba(0, 0, 0, 0);"></canvas>
+                                <div id="dom_overlay_container2" style="pointer-events:none; overflow:hidden; width:956px; height:750px; position: absolute; left: 0px; top: 0px; display: block;">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="sel-two" style="display:none">
+                            <div id="animation_container" style="background-color:rgba(0, 0, 0,0); width:956px; height:750px">
+                                <canvas id="canvas" width="956" height="750" style="position: absolute; display: block; background-color:rgba(0, 0, 0, 0);"></canvas>
+                                <div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:956px; height:750px; position: absolute; left: 0px; top: 0px; display: block;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+     
+
+    </section>
+
+    <footer>
+        <a href="http://tnt-online.ru/" target="_blank">
+            <img src="img/logo.png" alt="">    
+        </a>
+        <img src="img/footer.png" alt="">
+    </footer>
+    
+    <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+    <script src="snake_leto.js?ver=00001"></script>
+    <script src="snake-l.js?ver=00001"></script>  
+    <script src="device.js"></script>
+    <script  src="https://code.jquery.com/jquery-3.3.1.min.js"  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
+    <script>
+            $(window).on('load',function(){
+                initleto()
+    
+            })
+            $(function() {
+
+                $('.old_stage')
+                .click(function(){
+                    $(this).hide()
+                    function reload_js(src) {
+                    $('<script>').attr('src', src).appendTo('head');
+                            $('<script>').attr('src', 'snake_mini.js').appendTo('head');
+                }
+                reload_js('snake-z.js');
+                init()
+                })
+    
+                $('.osen').click(function(){
+                    function reload_js(src) {
+                    $('script[src="snake-z.js"]').remove();
+                    $('<script>').attr('src', src).appendTo('head');
+                            $('<script>').attr('src', 'snake2.js').appendTo('head');
+                }
+                reload_js('snake-o.js');
+                initosen()
+                })
+    
+               
+                $('.tab_new > div').click(function(){
+                    $(this).addClass('active');             
+                        $('.tab').removeClass('old')
+                        $('.old_block').removeClass('old')
+    
+                })
+                $('.tab > div').click(function(){
+                    $('.tab > div').removeClass('active')
+                    $(this).addClass('active');
+                    if($(this).hasClass('zima')){
+                        $('.sel-one').css('display','block')
+                        $('.sel-two').css('display','none')
+                    }
+                    else{
+                        $('.sel-one').css('display','none')
+                        $('.sel-two').css('display','block')
+                    }
+                })
+    
+            })
+        </script>
 </body>
 
 </html>
-
