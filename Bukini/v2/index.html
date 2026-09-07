@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ускоряющееся таяние льда</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background: url('images.jpg') no-repeat center center;
+            background-size: cover;
+        }
+
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+            text-align: center;
+            user-select: none;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.7);
+        }
+
+        #frostCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            pointer-events: none;
+            transition: opacity 1.5s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="content" style="display:none;">
+        <div>
+            <h1>Эффект активного таяния изображений</h1>
+            <p>Проведите мышкой. Очистите 45% экрана для взрывного автооттаяния.</p>
+        </div>
+    </div>
+
+    <canvas id="frostCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('frostCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const maskCanvas = document.createElement('canvas');
+        const maskCtx = maskCanvas.getContext('2d');
+
+        const frostImage = new Image();
+        frostImage.src = '00.png';
+        let imgLoaded = false;
+        frostImage.onload = () => {
+            imgLoaded = true;
+            draw();
+        };
+
+        // НАСТРОЙКИ ЭФФЕКТА
+        const BRUSH_RADIUS = 120;       
+        const THRESHOLD_PERCENT = 45;   
+        const AUTO_MELT_SPEED = 0.5;    
+
+        let isThawed = false;
+        let isFinalThawing = false; 
+        let lastCheckTime = 0;
+        
+        // Переменные для управления ускорением
+        let finalThawStartTime = 0;
+        const INITIAL_FINAL_SPEED = 12; // Начальная скорость финального таяния
+
+        function getCoverCoords(imgW, imgH, containerW, containerH) {
+            const imgRatio = imgW / imgH;
+            const containerRatio = containerW / containerH;
+            let startX = 0, startY = 0, renderW = containerW, renderH = containerH;
+
+            if (containerRatio > imgRatio) {
+                renderH = containerW / imgRatio;
+                startY = (containerH - renderH) / 2;
+            } else {
+                renderW = containerH * imgRatio;
+                startX = (containerW - renderW) / 2;
+            }
+            return { x: startX, y: startY, w: renderW, h: renderH };
+        }
+
+        function resizeCanvas() {
+            if (isThawed) return;
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = maskCanvas.width;
+            tempCanvas.height = maskCanvas.height;
+            const tempCtx = tempCanvas.getContext('2d');
+            tempCtx.drawImage(maskCanvas, 0, 0);
+
+            canvas.width = width;
+            canvas.height = height;
+            maskCanvas.width = width;
+            maskCanvas.height = height;
+
+            maskCtx.clearRect(0, 0, width, height);
+            maskCtx.drawImage(tempCanvas, 0, 0);
+
+            draw();
+        }
+
+        function checkMeltPercentage() {
+            if (isThawed || isFinalThawing) return;
+
+            const imgData = maskCtx.getImageData(0, 0, maskCanvas.width, maskCanvas.height);
+            const data = imgData.data;
+            let clearedPixels = 0;
+
+            for (let i = 3; i < data.length; i += 128) {
+                if (data[i] > 100) { 
+                    clearedPixels++;
+                }
+            }
+
+            const totalSampledPixels = data.length / 128;
+            const percentage = (clearedPixels / totalSampledPixels) * 100;
+
+            if (percentage >= THRESHOLD_PERCENT) {
+                startSmoothFinalThaw();
+            }
+        }
+
+        function startSmoothFinalThaw() {
+            isFinalThawing = true;
+            finalThawStartTime = performance.now(); // Запоминаем точное время старта финала
+            smoothFinalThaw(performance.now());
+        }
+
+        // Анимационный цикл прогрессирующего финального таяния
+        function smoothFinalThaw(currentTime) {
+            if (isThawed) return;
+
+            // Вычисляем, сколько секунд прошло с момента старта финала
+            const timePassedInSeconds = (currentTime - finalThawStartTime) / 1000;
+
+            maskCtx.save();
+            maskCtx.globalCompositeOperation = 'source-over';
+            
+            // Степень размытия увеличивается по мере ускорения таяния
+            maskCtx.globalAlpha = 0.35; 
+            maskCtx.filter = 'blur(3px)';
+            
+            // Расчет прогрессирующей скорости: стартует с 12 и лавинообразно растет в течение 2 секунд
+            // Формула увеличивает скорость быстрее к концу отведенного времени
+            const accelerationFactor = Math.pow(timePassedInSeconds / 2, 2) * 50; 
+            const dynamicSpeed = INITIAL_FINAL_SPEED + accelerationFactor;
+
+            maskCtx.drawImage(
+                maskCanvas, 
+                -dynamicSpeed, 
+                -dynamicSpeed, 
+                maskCanvas.width + (dynamicSpeed * 2), 
+                maskCanvas.height + (dynamicSpeed * 2)
+            );
+            maskCtx.restore();
+            
+            draw();
+
+            // Если 2 секунды истекли или лед полностью сошел по расчетам пикселей
+            if (timePassedInSeconds >= 2) {
+                isThawed = true;
+                
+                // Мягко подчищаем остатки заливкой на 100%
+                maskCtx.fillStyle = 'rgba(0, 0, 0, 1.0)';
+                maskCtx.fillRect(0, 0, maskCanvas.width, maskCanvas.height);
+                draw();
+
+                canvas.style.opacity = '0';
+                
+                setTimeout(() => {
+                    canvas.remove();
+                    alert("постер показан");
+                }, 1500);
+            } else {
+                requestAnimationFrame(smoothFinalThaw);
+            }
+        }
+
+        function melt(x, y) {
+            if (isThawed || isFinalThawing) return;
+
+            let gradient = maskCtx.createRadialGradient(x, y, 0, x, y, BRUSH_RADIUS);
+            gradient.addColorStop(0, 'rgba(0, 0, 0, 1.0)');     
+            gradient.addColorStop(0.1, 'rgba(0, 0, 0, 0.5)');   
+            gradient.addColorStop(0.4, 'rgba(0, 0, 0, 0.1)');   
+            gradient.addColorStop(1, 'rgba(0, 0, 0, 0.0)');     
+
+            maskCtx.save();
+            maskCtx.fillStyle = gradient;
+            maskCtx.globalCompositeOperation = 'source-over';
+            maskCtx.beginPath();
+            maskCtx.arc(x, y, BRUSH_RADIUS, 0, Math.PI * 2);
+            maskCtx.fill();
+            maskCtx.restore();
+
+            draw();
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            if (imgLoaded) {
+                const coords = getCoverCoords(frostImage.width, frostImage.height, canvas.width, canvas.height);
+                ctx.drawImage(frostImage, coords.x, coords.y, coords.w, coords.h);
+            } else {
+                ctx.fillStyle = 'rgba(235, 245, 255, 0.96)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            }
+
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.drawImage(maskCanvas, 0, 0);
+            ctx.globalCompositeOperation = 'source-over';
+        }
+
+        function update(currentTime) {
+            if (isThawed || isFinalThawing) return;
+
+            maskCtx.save();
+            maskCtx.globalCompositeOperation = 'source-over';
+            maskCtx.globalAlpha = 0.35; 
+            maskCtx.filter = 'blur(3px)';
+            
+            maskCtx.drawImage(
+                maskCanvas, 
+                -AUTO_MELT_SPEED, 
+                -AUTO_MELT_SPEED, 
+                maskCanvas.width + (AUTO_MELT_SPEED * 2), 
+                maskCanvas.height + (AUTO_MELT_SPEED * 2)
+            );
+            maskCtx.restore();
+            
+            draw();
+
+            if (currentTime - lastCheckTime > 300) {
+                checkMeltPercentage();
+                lastCheckTime = currentTime;
+            }
+
+            requestAnimationFrame(update);
+        }
+
+        window.addEventListener('mousemove', (e) => {
+            melt(e.clientX, e.clientY);
+        });
+
+        window.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                melt(e.touches.clientX, e.touches.clientY);
+            }
+        });
+
+        window.addEventListener('resize', resizeCanvas);
+        
+        resizeCanvas();
+        requestAnimationFrame(update);
+    </script>
+</body>
+</html>
